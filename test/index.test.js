@@ -24,6 +24,45 @@ test('it respond with errCode', async () => {
   expect(result.status).toBe(401)
 })
 
+test('it handle inputs', async () => {
+  const result = await exposeTest({
+    '/cats': async ({ input }) => {
+      return 'welcome ' + input.name
+    }
+  })
+  ('/cats', { name: 'Simon Madsen' })
+  expect(result.status).toBe(200)
+  expect(result.response).toBe('welcome Simon Madsen')
+})
+
+test('it handles jwt', async () => {
+  const requestTests = exposeTest({
+    '/signin': async ({ jwtSign }) => {
+      const token = jwtSign({ user: 1 })
+      return { token }
+    },
+    '/api-route': async ({ jwtVerify }) => {
+      try {
+        const data = await jwtVerify()
+        return { data }
+      } catch (error) {
+        return errCode(401)
+      }
+    },
+  })
+
+  const unauthorized = await requestTests('/api-route')
+  expect(unauthorized.status).toBe(401)
+
+  const signin = await requestTests('/signin')
+
+  const headers = {}
+  headers['x-access-token'] = signin.response.token
+
+  const authorized = await requestTests('/api-route', null, headers)
+  expect(authorized.status).toBe(200)
+})
+
 test('it handles promise', async () => {
   const result = await exposeTest({
     '/cats': async () => {
