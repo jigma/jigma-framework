@@ -1,5 +1,5 @@
 import makeRespond from './make-respond'
-export const exposeTest = (endpoints) => (endpointName, params, headers) => {
+export const exposeTest = (endpoints) => (endpointName, params = {}, headers = {}) => {
   return new Promise((resolve,reject) => {
     const endpoint = endpoints[endpointName]
     if (!endpoint){

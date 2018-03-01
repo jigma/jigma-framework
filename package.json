@@ -5,9 +5,9 @@
     "build": "babel src -d dist",
     "test": "./node_modules/.bin/jest"
   },
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "Dead simple framework for building web services",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "repository": "https://github.com/jigma/jigma-framework.git",
   "author": "Jigma Group",
   "license": "MIT",

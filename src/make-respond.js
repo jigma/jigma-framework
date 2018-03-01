@@ -21,11 +21,11 @@ const jwtSign = (payload = { id: 1 }) =>
  const jwtVerify = req => () => new Promise((resolve, reject) => {
   const token = req.headers['x-access-token']
   if (!token) {
-    reject('no token')
+    resolve(false)
   }
   jwt.verify(token, 'app_key', (err, decoded) => {
     if (err) {
-      reject('wrong token')
+      resolve(false)
     }
     resolve(decoded)
   })

@@ -42,12 +42,11 @@ test('it handles jwt', async () => {
       return { token }
     },
     '/api-route': async ({ jwtVerify }) => {
-      try {
-        const data = await jwtVerify()
-        return { data }
-      } catch (error) {
+      const verify = await jwtVerify()
+      if(!verify){
         return errCode(401)
       }
+      return { verify}
     },
   })
 

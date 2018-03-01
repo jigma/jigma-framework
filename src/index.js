@@ -8,7 +8,6 @@ export const expose = (endpoints, port) => {
       makeRespond(endpoints[endpoint], req, res))
   }
   Object.keys(endpoints).forEach(bindEndPoint)
-
   app.listen(port)
 }
 
