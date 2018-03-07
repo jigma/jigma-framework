@@ -1,6 +1,7 @@
-export app from './setup-express'
+import app from './setup-express'
 import makeRespond from './make-respond'
 export { exposeTest } from './make-test'
+export const express = app
 
 export const expose = (endpoints, port) => {
   const bindEndPoint = (endpoint) => {
