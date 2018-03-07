@@ -1,4 +1,4 @@
-import app from './setup-express'
+export app from './setup-express'
 import makeRespond from './make-respond'
 export { exposeTest } from './make-test'
 
