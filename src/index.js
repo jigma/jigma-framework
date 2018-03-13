@@ -1,7 +1,10 @@
-import app from './setup-express'
+import makeExpress from './setup-express'
+import cfg from './config'
 import makeRespond from './make-respond'
 export { exposeTest } from './make-test'
+const app = makeExpress(cfg)
 export const express = app
+export const config = cfg
 
 export const expose = (endpoints, port) => {
   const bindEndPoint = (endpoint) => {
@@ -9,7 +12,7 @@ export const expose = (endpoints, port) => {
       makeRespond(endpoints[endpoint], req, res))
   }
   Object.keys(endpoints).forEach(bindEndPoint)
-  app.listen(port)
+  app.jigma(port)
 }
 
 export const errCode = (code) => ({
