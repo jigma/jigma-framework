@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
 const fs = require('fs')
+const path = require('path')
 
 
 const makeExpress = (config) => {
@@ -24,6 +25,13 @@ const makeExpress = (config) => {
   app.use(bodyParser.json())
   app.use(helmet())
   app.use(bodyParser.urlencoded({ extended: true }))
+
+  if (config.react === 'true') {
+    app.use('/', express.static(path.join(`${__dirname}`, 'react')))
+    app.get('/', (req, res) => {
+      res.sendFile(path.join(`${__dirname} / react / index.html`))
+    })
+  }
 
   const serverConfig = config.https !== 'true' ? {} :
     {
