@@ -27,9 +27,9 @@ const makeExpress = (config) => {
   app.use(bodyParser.urlencoded({ extended: true }))
 
   if (config.react === 'true') {
-    app.use('/', express.static(path.join(`${__dirname}`, 'react')))
+    app.use('/', express.static(path.join(`${__dirname}`, '/../../../react')))
     app.get('/', (req, res) => {
-      res.sendFile(path.join(`${__dirname} / react / index.html`))
+      res.sendFile(path.join(`${__dirname}/../../../react/index.html`))
     })
   }
 
