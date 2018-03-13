@@ -45,6 +45,10 @@ const makeExpress = (config) => {
       ? require('http').createServer(app)
       : require('https').createServer(serverConfig, app)
 
+    if (config.ws === 'true') {
+      require('express-ws')(app, server)
+    }
+
     server.listen(port)
     console.log(`Listen on: ${port}`)
   }
