@@ -13,6 +13,7 @@ const makeExpress = (config) => {
     res.setHeader('Access-Control-Allow-Methods', 'POST')
     next()
   }
+  app.use(allowCrossDomain)
   app.use('*', (req, res, next) => {
     if (req.method == 'OPTIONS') {
       res.status(200)
@@ -21,7 +22,6 @@ const makeExpress = (config) => {
       next()
     }
   })
-  app.use(allowCrossDomain)
   app.use(bodyParser.json())
   app.use(helmet())
   app.use(bodyParser.urlencoded({ extended: true }))
