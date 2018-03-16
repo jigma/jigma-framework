@@ -40,15 +40,15 @@ const makeExpress = (config) => {
       ca: fs.readFileSync(config.https_fullchain)
     }
 
-  app.jigma = (port) => {
     const server = config.https !== 'true'
-      ? require('http').createServer(app)
-      : require('https').createServer(serverConfig, app)
+    ? require('http').createServer(app)
+    : require('https').createServer(serverConfig, app)
 
-    if (config.ws === 'true') {
-      require('express-ws')(app, server)
-    }
+  if (config.ws === 'true') {
+    require('express-ws')(app, server)
+  }
 
+  app.jigma = (port) => {
     server.listen(port)
     console.log(`Listen on: ${port}`)
   }
